@@ -1,0 +1,148 @@
+'use client';
+
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { SeatReservation } from './seat-reservation';
+import { Check, X } from 'lucide-react';
+
+type RSVPStatus = 'pending' | 'yes' | 'no' | 'unsure';
+
+export function RSVPSection() {
+  const [status, setStatus] = useState<RSVPStatus>('pending');
+
+  const renderContent = () => {
+    switch (status) {
+      case 'yes':
+        return (
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <div className="inline-block rounded-full bg-primary/20 p-3 mb-4">
+                <Check className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-3xl font-serif text-foreground mb-2">
+                We're thrilled you can make it!
+              </h3>
+              <p className="text-muted-foreground font-light">
+                Please select your seat below
+              </p>
+            </div>
+            <SeatReservation />
+          </div>
+        );
+
+      case 'no':
+        return (
+          <div className="text-center py-12">
+            <div className="inline-block rounded-full bg-red-100 p-3 mb-4">
+              <X className="w-8 h-8 text-red-600" />
+            </div>
+            <h3 className="text-3xl font-serif text-foreground mb-4">
+              Thank you for letting us know
+            </h3>
+            <p className="text-muted-foreground font-light max-w-lg mx-auto">
+              We'll miss you on our special day. Your presence would have meant the world to us.
+            </p>
+            <Button
+              onClick={() => setStatus('pending')}
+              variant="outline"
+              className="mt-8"
+            >
+              Back
+            </Button>
+          </div>
+        );
+
+      case 'unsure':
+        return (
+          <div className="text-center py-12">
+            <h3 className="text-3xl font-serif text-foreground mb-4">
+              Still deciding?
+            </h3>
+            <p className="text-muted-foreground font-light max-w-lg mx-auto mb-8">
+              We understand that plans can be uncertain. Please feel free to reach out to us with any questions or to confirm your attendance.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="text-left">
+                <p className="font-light text-sm uppercase tracking-widest text-muted-foreground mb-1">
+                  Bride
+                </p>
+                <p className="text-lg font-serif text-foreground">Sarah</p>
+                <p className="text-muted-foreground font-light">(555) 123-4567</p>
+              </div>
+              <div className="h-12 w-px bg-border hidden sm:block" />
+              <div className="text-left">
+                <p className="font-light text-sm uppercase tracking-widest text-muted-foreground mb-1">
+                  Groom
+                </p>
+                <p className="text-lg font-serif text-foreground">James</p>
+                <p className="text-muted-foreground font-light">(555) 987-6543</p>
+              </div>
+            </div>
+            <Button
+              onClick={() => setStatus('pending')}
+              variant="outline"
+              className="mt-8"
+            >
+              Back
+            </Button>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="text-center">
+            <h3 className="text-2xl sm:text-3xl font-serif text-foreground mb-4">
+              Will you be able to attend?
+            </h3>
+            <p className="text-muted-foreground font-light mb-8">
+              Please let us know by May 1st
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                onClick={() => setStatus('yes')}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-light"
+              >
+                Yes, I'll be there
+              </Button>
+              <Button
+                onClick={() => setStatus('no')}
+                variant="outline"
+                className="px-8 py-6 text-base font-light"
+              >
+                Sorry, I can't attend
+              </Button>
+              <Button
+                onClick={() => setStatus('unsure')}
+                variant="outline"
+                className="px-8 py-6 text-base font-light"
+              >
+                Still deciding
+              </Button>
+            </div>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <section
+      id="rsvp-section"
+      className="py-16 sm:py-24 bg-white px-4 sm:px-6 lg:px-8"
+    >
+      <div className="max-w-2xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
+            RSVP
+          </h2>
+          <p className="text-muted-foreground font-light">
+            Join us in celebrating love
+          </p>
+        </div>
+
+        {/* RSVP Content */}
+        {renderContent()}
+      </div>
+    </section>
+  );
+}
