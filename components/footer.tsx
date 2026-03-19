@@ -1,16 +1,17 @@
 'use client';
 
 import { Heart } from 'lucide-react';
+import { Reveal } from '@/components/ui/reveal';
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-background to-secondary/10 border-t border-accent/20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+    <footer className="min-h-[100dvh] w-full flex flex-col justify-center snap-start snap-always bg-gradient-to-b from-background to-secondary/10 border-t border-accent/20">
+      <Reveal className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-8 mb-16">
           {/* Left: Couple Names */}
-          <div className="text-center md:text-left">
-            <h3 className="text-3xl font-serif text-foreground mb-2">
-              Sarah & James
+          <div className="text-center md:text-left flex flex-col justify-center">
+            <h3 className="text-3xl font-serif text-foreground mb-4">
+              Lily & Ejoke
             </h3>
             <p className="text-sm uppercase tracking-widest text-muted-foreground font-light">
               May 16, 2025
@@ -45,18 +46,18 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-accent/20 my-8" />
+        <div className="h-px bg-accent/20 my-16" />
 
         {/* Bottom: Copyright */}
         <div className="text-center">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground font-light mb-3">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground font-light mb-4">
             Strictly by Invitation
           </p>
-          <p className="text-xs text-muted-foreground font-light">
-            © 2025 Sarah & James. All rights reserved.
+          <p className="text-xs text-muted-foreground font-light tracking-wide">
+            © 2025 Lily & Ejoke. All rights reserved.
           </p>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }

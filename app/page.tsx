@@ -7,7 +7,7 @@ import { Footer } from '@/components/footer';
 
 export default function Home() {
   return (
-    <main className="overflow-hidden">
+    <main className="h-[100dvh] max-h-[100vh] overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth relative bg-background/50 selection:bg-primary/20">
       <HeroSection />
       <WeddingCountdown />
       <LoveStoryTimeline />

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
+import { Reveal } from '@/components/ui/reveal';
 
 interface GalleryImage {
   id: number;
@@ -44,21 +45,24 @@ export function PhotoGallery() {
   };
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-background to-secondary/5 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+    <section className="min-h-[100dvh] w-full flex flex-col justify-center py-20 sm:py-32 bg-gradient-to-b from-background to-secondary/5 px-4 sm:px-6 lg:px-8 snap-start snap-always relative">
+      <div className="w-full max-w-6xl mx-auto space-y-12">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
-            Our Moments
-          </h2>
-          <p className="text-muted-foreground font-light">
-            Memories we cherish together
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
+              Our Moments
+            </h2>
+            <p className="text-muted-foreground font-light">
+              Memories we cherish together
+            </p>
+          </div>
+        </Reveal>
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {images.map((image) => (
+          {images.map((image, index) => (
+            <Reveal key={image.id} delay={index * 100} className="w-full h-full">
             <div
               key={image.id}
               onClick={() => setSelectedImageId(image.id)}
@@ -86,6 +90,7 @@ export function PhotoGallery() {
                 </div>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>

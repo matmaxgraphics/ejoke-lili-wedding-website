@@ -1,6 +1,7 @@
 'use client';
 
 import { Heart, Diamond, Calendar } from 'lucide-react';
+import { Reveal } from '@/components/ui/reveal';
 
 interface TimelineEvent {
   icon: React.ReactNode;
@@ -35,9 +36,10 @@ export function LoveStoryTimeline() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 bg-white px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <section className="min-h-[100dvh] w-full flex flex-col justify-center py-20 sm:py-32 bg-white px-4 sm:px-6 lg:px-8 snap-start snap-always relative">
+      <div className="w-full max-w-4xl mx-auto space-y-16">
         {/* Section Header */}
+        <Reveal>
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
             Our Love Story
@@ -46,6 +48,7 @@ export function LoveStoryTimeline() {
             A journey of love and commitment
           </p>
         </div>
+        </Reveal>
 
         {/* Timeline */}
         <div className="relative">
@@ -55,13 +58,13 @@ export function LoveStoryTimeline() {
           {/* Timeline events */}
           <div className="space-y-12 sm:space-y-16">
             {events.map((event, index) => (
-              <div
-                key={index}
-                className={`flex gap-6 sm:gap-8 ${
-                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-                }`}
-              >
-                {/* Content */}
+              <Reveal key={index} delay={200 + index * 150}>
+                <div
+                  className={`flex gap-6 sm:gap-8 ${
+                    index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                  }`}
+                >
+                  {/* Content */}
                 <div className="w-full sm:w-1/2">
                   <div className="bg-secondary/30 rounded-lg p-6 sm:p-8 border border-accent/20 hover:border-accent/40 transition-colors">
                     <p className="text-sm font-light uppercase tracking-widest text-muted-foreground mb-2">
@@ -85,9 +88,10 @@ export function LoveStoryTimeline() {
                   </div>
                 </div>
 
-                {/* Empty space for alternate layout */}
-                <div className="hidden sm:block w-full sm:w-1/2" />
-              </div>
+                  {/* Empty space for alternate layout */}
+                  <div className="hidden sm:block w-full sm:w-1/2" />
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>

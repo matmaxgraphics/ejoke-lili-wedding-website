@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
+import { Reveal } from '@/components/ui/reveal';
 
 interface TimeRemaining {
   days: number;
@@ -57,8 +58,8 @@ export function WeddingCountdown() {
   );
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-background to-secondary/5 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+    <section className="min-h-[100dvh] w-full flex flex-col justify-center py-20 sm:py-32 bg-gradient-to-b from-background to-secondary/5 px-4 sm:px-6 lg:px-8 snap-start snap-always">
+      <Reveal className="w-full max-w-5xl mx-auto space-y-16">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
@@ -81,7 +82,7 @@ export function WeddingCountdown() {
             <CountdownUnit value={timeRemaining.seconds} label="Seconds" />
           </div>
         </Card>
-      </div>
+      </Reveal>
     </section>
   );
 }

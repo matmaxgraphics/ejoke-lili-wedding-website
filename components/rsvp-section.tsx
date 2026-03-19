@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { SeatReservation } from './seat-reservation';
 import { Check, X } from 'lucide-react';
+import { Reveal } from '@/components/ui/reveal';
 
 type RSVPStatus = 'pending' | 'yes' | 'no' | 'unsure';
 
@@ -66,7 +67,7 @@ export function RSVPSection() {
                 <p className="font-light text-sm uppercase tracking-widest text-muted-foreground mb-1">
                   Bride
                 </p>
-                <p className="text-lg font-serif text-foreground">Sarah</p>
+                <p className="text-lg font-serif text-foreground">Lily</p>
                 <p className="text-muted-foreground font-light">(555) 123-4567</p>
               </div>
               <div className="h-12 w-px bg-border hidden sm:block" />
@@ -74,7 +75,7 @@ export function RSVPSection() {
                 <p className="font-light text-sm uppercase tracking-widest text-muted-foreground mb-1">
                   Groom
                 </p>
-                <p className="text-lg font-serif text-foreground">James</p>
+                <p className="text-lg font-serif text-foreground">Ejoke</p>
                 <p className="text-muted-foreground font-light">(555) 987-6543</p>
               </div>
             </div>
@@ -127,9 +128,9 @@ export function RSVPSection() {
   return (
     <section
       id="rsvp-section"
-      className="py-16 sm:py-24 bg-white px-4 sm:px-6 lg:px-8"
+      className="min-h-[100dvh] w-full flex flex-col justify-center py-20 sm:py-32 bg-white px-4 sm:px-6 lg:px-8 snap-start snap-always"
     >
-      <div className="max-w-2xl mx-auto">
+      <Reveal className="w-full max-w-3xl mx-auto space-y-12">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
@@ -142,7 +143,7 @@ export function RSVPSection() {
 
         {/* RSVP Content */}
         {renderContent()}
-      </div>
+      </Reveal>
     </section>
   );
 }
