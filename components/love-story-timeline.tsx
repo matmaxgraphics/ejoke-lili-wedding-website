@@ -39,16 +39,18 @@ export function LoveStoryTimeline() {
     <section className="min-h-[100dvh] w-full flex flex-col justify-center py-20 sm:py-32 bg-white px-4 sm:px-6 lg:px-8 snap-start snap-always relative">
       <div className="w-full max-w-4xl mx-auto space-y-16">
         {/* Section Header */}
-        <Reveal>
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
-            Our Love Story
-          </h2>
-          <p className="text-muted-foreground font-light">
-            A journey of love and commitment
-          </p>
+          <Reveal delay={0}>
+            <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
+              Our Love Story
+            </h2>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="text-muted-foreground font-light">
+              A journey of love and commitment
+            </p>
+          </Reveal>
         </div>
-        </Reveal>
 
         {/* Timeline */}
         <div className="relative">
@@ -58,40 +60,47 @@ export function LoveStoryTimeline() {
           {/* Timeline events */}
           <div className="space-y-12 sm:space-y-16">
             {events.map((event, index) => (
-              <Reveal key={index} delay={200 + index * 150}>
-                <div
-                  className={`flex gap-6 sm:gap-8 ${
-                    index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-                  }`}
-                >
-                  {/* Content */}
+              <div
+                key={index}
+                className={`flex gap-6 sm:gap-8 ${
+                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                }`}
+              >
+                {/* Content */}
                 <div className="w-full sm:w-1/2">
                   <div className="bg-secondary/30 rounded-lg p-6 sm:p-8 border border-accent/20 hover:border-accent/40 transition-colors">
-                    <p className="text-sm font-light uppercase tracking-widest text-muted-foreground mb-2">
-                      {event.date}
-                    </p>
-                    <h3 className="text-2xl sm:text-3xl font-serif text-foreground mb-3">
-                      {event.title}
-                    </h3>
-                    <p className="text-muted-foreground font-light leading-relaxed">
-                      {event.description}
-                    </p>
+                    <Reveal delay={index * 150 + 0}>
+                      <p className="text-sm font-light uppercase tracking-widest text-muted-foreground mb-2">
+                        {event.date}
+                      </p>
+                    </Reveal>
+                    <Reveal delay={index * 150 + 100}>
+                      <h3 className="text-2xl sm:text-3xl font-serif text-foreground mb-3">
+                        {event.title}
+                      </h3>
+                    </Reveal>
+                    <Reveal delay={index * 150 + 200}>
+                      <p className="text-muted-foreground font-light leading-relaxed">
+                        {event.description}
+                      </p>
+                    </Reveal>
                   </div>
                 </div>
 
                 {/* Center icon */}
                 <div className="hidden sm:flex w-full sm:w-0 justify-center">
-                  <div className="relative z-10 flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-white border-4 border-primary flex items-center justify-center shadow-lg">
-                      {event.icon}
+                  <Reveal delay={index * 150 + 300}>
+                    <div className="relative z-10 flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-full bg-white border-4 border-primary flex items-center justify-center shadow-lg">
+                        {event.icon}
+                      </div>
                     </div>
-                  </div>
+                  </Reveal>
                 </div>
 
-                  {/* Empty space for alternate layout */}
-                  <div className="hidden sm:block w-full sm:w-1/2" />
-                </div>
-              </Reveal>
+                {/* Empty space for alternate layout */}
+                <div className="hidden sm:block w-full sm:w-1/2" />
+              </div>
             ))}
           </div>
         </div>

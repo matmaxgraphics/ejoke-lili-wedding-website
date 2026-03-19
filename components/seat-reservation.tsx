@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { Reveal } from '@/components/ui/reveal';
 
 interface Seat {
   id: string;
@@ -80,43 +81,53 @@ export function SeatReservation() {
       {/* Seat Grid */}
       <div className="bg-gradient-to-br from-secondary/5 to-accent/5 rounded-lg p-6 sm:p-8 border border-accent/20">
         <div className="mb-6">
-          <h3 className="text-xl font-serif text-foreground mb-4">Select Your Seat</h3>
+          <Reveal delay={0}>
+            <h3 className="text-xl font-serif text-foreground mb-4">Select Your Seat</h3>
+          </Reveal>
           <div className="flex flex-wrap gap-4 mb-6">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-secondary/50 border border-accent/30" />
-              <span className="text-sm text-muted-foreground font-light">Available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-muted border border-muted-foreground/20 opacity-60" />
-              <span className="text-sm text-muted-foreground font-light">Reserved</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-primary border border-primary" />
-              <span className="text-sm text-muted-foreground font-light">Your Selection</span>
-            </div>
+            <Reveal delay={100}>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-secondary/50 border border-accent/30" />
+                <span className="text-sm text-muted-foreground font-light">Available</span>
+              </div>
+            </Reveal>
+            <Reveal delay={200}>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-muted border border-muted-foreground/20 opacity-60" />
+                <span className="text-sm text-muted-foreground font-light">Reserved</span>
+              </div>
+            </Reveal>
+            <Reveal delay={300}>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-primary border border-primary" />
+                <span className="text-sm text-muted-foreground font-light">Your Selection</span>
+              </div>
+            </Reveal>
           </div>
         </div>
 
         {/* Seats */}
         <div className="space-y-4 max-w-md mx-auto">
           {Array.from({ length: ROWS }).map((_, row) => (
-            <div key={row} className="flex justify-center gap-2">
-              {seats
-                .filter((_, idx) => Math.floor(idx / SEATS_PER_ROW) === row)
-                .map((seat) => (
-                  <button
-                    key={seat.id}
-                    onClick={() => handleSeatClick(seat)}
-                    disabled={seat.status === 'reserved'}
-                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded border transition-all ${getSeatColor(
-                      seat.status
-                    )}`}
-                    title={`Seat ${seat.seatNumber}`}
-                  >
-                    <span className="text-xs font-light">{seat.seatNumber}</span>
-                  </button>
-                ))}
-            </div>
+            <Reveal key={row} delay={400 + row * 100}>
+              <div className="flex justify-center gap-2">
+                {seats
+                  .filter((_, idx) => Math.floor(idx / SEATS_PER_ROW) === row)
+                  .map((seat) => (
+                    <button
+                      key={seat.id}
+                      onClick={() => handleSeatClick(seat)}
+                      disabled={seat.status === 'reserved'}
+                      className={`w-8 h-8 sm:w-10 sm:h-10 rounded border transition-all ${getSeatColor(
+                        seat.status
+                      )}`}
+                      title={`Seat ${seat.seatNumber}`}
+                    >
+                      <span className="text-xs font-light">{seat.seatNumber}</span>
+                    </button>
+                  ))}
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -124,15 +135,19 @@ export function SeatReservation() {
       {/* Selected Seat Info & Confirm Button */}
       {selectedSeat && (
         <div className="text-center">
-          <p className="text-lg font-serif text-foreground mb-4">
-            You have selected Seat {selectedSeat.seatNumber}
-          </p>
-          <Button
-            onClick={() => setShowConfirmation(true)}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-light"
-          >
-            Confirm Seat
-          </Button>
+          <Reveal delay={0}>
+            <p className="text-lg font-serif text-foreground mb-4">
+              You have selected Seat {selectedSeat.seatNumber}
+            </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <Button
+              onClick={() => setShowConfirmation(true)}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-light"
+            >
+              Confirm Seat
+            </Button>
+          </Reveal>
         </div>
       )}
 

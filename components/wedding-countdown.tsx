@@ -59,30 +59,34 @@ export function WeddingCountdown() {
 
   return (
     <section className="min-h-[100dvh] w-full flex flex-col justify-center py-20 sm:py-32 bg-gradient-to-b from-background to-secondary/5 px-4 sm:px-6 lg:px-8 snap-start snap-always">
-      <Reveal className="w-full max-w-5xl mx-auto space-y-16">
+      <div className="w-full max-w-5xl mx-auto space-y-16">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
-            The Countdown
-          </h2>
-          <p className="text-muted-foreground font-light">
-            Days until we say I do
-          </p>
+          <Reveal delay={0}>
+            <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
+              The Countdown
+            </h2>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="text-muted-foreground font-light">
+              Days until we say I do
+            </p>
+          </Reveal>
         </div>
 
         {/* Countdown Grid */}
         <Card className="backdrop-blur-sm bg-white/50 border-accent/20 p-8 sm:p-12">
           <div className="flex flex-wrap justify-center items-end gap-4 sm:gap-6 lg:gap-8">
-            <CountdownUnit value={timeRemaining.days} label="Days" />
-            <div className="text-3xl sm:text-4xl font-light text-accent mb-6">:</div>
-            <CountdownUnit value={timeRemaining.hours} label="Hours" />
-            <div className="text-3xl sm:text-4xl font-light text-accent mb-6">:</div>
-            <CountdownUnit value={timeRemaining.minutes} label="Minutes" />
-            <div className="text-3xl sm:text-4xl font-light text-accent mb-6">:</div>
-            <CountdownUnit value={timeRemaining.seconds} label="Seconds" />
+            <Reveal delay={300}><CountdownUnit value={timeRemaining.days} label="Days" /></Reveal>
+            <Reveal delay={400}><div className="text-3xl sm:text-4xl font-light text-accent mb-6">:</div></Reveal>
+            <Reveal delay={500}><CountdownUnit value={timeRemaining.hours} label="Hours" /></Reveal>
+            <Reveal delay={600}><div className="text-3xl sm:text-4xl font-light text-accent mb-6">:</div></Reveal>
+            <Reveal delay={700}><CountdownUnit value={timeRemaining.minutes} label="Minutes" /></Reveal>
+            <Reveal delay={800}><div className="text-3xl sm:text-4xl font-light text-accent mb-6">:</div></Reveal>
+            <Reveal delay={900}><CountdownUnit value={timeRemaining.seconds} label="Seconds" /></Reveal>
           </div>
         </Card>
-      </Reveal>
+      </div>
     </section>
   );
 }

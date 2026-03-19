@@ -17,14 +17,13 @@ export function Reveal({ children, delay = 0, className = '' }: RevealProps) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsRevealed(true);
-          if (ref.current) {
-            observer.unobserve(ref.current);
-          }
+        } else {
+          setIsRevealed(false);
         }
       },
       {
         threshold: 0.15,
-        rootMargin: '50px',
+        rootMargin: '0px',
       }
     );
 

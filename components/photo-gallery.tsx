@@ -48,16 +48,18 @@ export function PhotoGallery() {
     <section className="min-h-[100dvh] w-full flex flex-col justify-center py-20 sm:py-32 bg-gradient-to-b from-background to-secondary/5 px-4 sm:px-6 lg:px-8 snap-start snap-always relative">
       <div className="w-full max-w-6xl mx-auto space-y-12">
         {/* Section Header */}
-        <Reveal>
-          <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-12 sm:mb-16">
+          <Reveal delay={0}>
             <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-3">
               Our Moments
             </h2>
+          </Reveal>
+          <Reveal delay={200}>
             <p className="text-muted-foreground font-light">
               Memories we cherish together
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
