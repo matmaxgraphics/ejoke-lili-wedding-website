@@ -46,7 +46,7 @@ export function HeroSection() {
             <p className="text-5xl sm:text-6xl font-serif text-primary mb-2">May 16</p>
             <div className="flex items-center justify-center gap-4">
               <div className="h-px w-8 bg-accent" />
-              <p className="text-sm uppercase tracking-widest text-muted-foreground">Two Thousand Twenty-Five</p>
+              <p className="text-sm uppercase tracking-widest text-muted-foreground">Two Thousand Twenty-Six</p>
               <div className="h-px w-8 bg-accent" />
             </div>
           </div>

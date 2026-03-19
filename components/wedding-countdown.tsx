@@ -21,8 +21,8 @@ export function WeddingCountdown() {
 
   useEffect(() => {
     const calculateTimeRemaining = () => {
-      // May 16, 2025
-      const weddingDate = new Date('2025-05-16T00:00:00').getTime();
+      // May 16, 2026
+      const weddingDate = new Date('2026-05-16T00:00:00').getTime();
       const now = new Date().getTime();
       const difference = weddingDate - now;
 

@@ -17,7 +17,7 @@ export function Footer() {
             </Reveal>
             <Reveal delay={200}>
               <p className="text-sm uppercase tracking-widest text-muted-foreground font-light">
-                May 16, 2025
+                May 16, 2026
               </p>
             </Reveal>
           </div>
@@ -71,7 +71,7 @@ export function Footer() {
           </Reveal>
           <Reveal delay={1400}>
             <p className="text-xs text-muted-foreground font-light tracking-wide">
-              © 2025 Lily & Ejoke. All rights reserved.
+              © 2026 Lily & Ejoke. All rights reserved.
             </p>
           </Reveal>
         </div>

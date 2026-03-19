@@ -29,7 +29,7 @@ export function LoveStoryTimeline() {
     {
       icon: <Calendar className="w-6 h-6 text-primary" />,
       title: 'The Big Day',
-      date: 'May 16, 2025',
+      date: 'May 16, 2026',
       description:
         'The day we say "I do" and begin our forever together. We cannot wait to celebrate this momentous occasion with all the people we love.',
     },
