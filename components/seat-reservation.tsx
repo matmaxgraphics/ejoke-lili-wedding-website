@@ -41,9 +41,10 @@ const BLOCKED_TABLE_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
 
 interface SeatReservationProps {
   onBack?: () => void;
+  onTrouble?: () => void;
 }
 
-export function SeatReservation({ onBack }: SeatReservationProps) {
+export function SeatReservation({ onBack, onTrouble }: SeatReservationProps) {
   const [tables, setTables] = useState<Table[]>([]);
   const [activeTable, setActiveTable] = useState<Table | null>(null);
   const [selectedSeat, setSelectedSeat] = useState<Seat | null>(null);
@@ -149,7 +150,10 @@ export function SeatReservation({ onBack }: SeatReservationProps) {
       }));
 
       setSubmitStatus('success');
-      setSubmitMessage(`Success! Table ${activeTable.tableNumber}, Seat ${selectedSeat.seatNumber} is reserved.`);
+      setSubmitMessage(`Sharp!
+        You just reserved Table ${activeTable.tableNumber}, Seat ${selectedSeat.seatNumber} all to yourself.
+
+        Can't wait to see you there!`);
     } catch (error: any) {
       setSubmitStatus('error');
       setSubmitMessage(error.message || 'Something went wrong.');
@@ -310,13 +314,22 @@ export function SeatReservation({ onBack }: SeatReservationProps) {
                   onChange={(e) => setGuestName(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-accent/20 bg-secondary/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  value={guestEmail}
-                  onChange={(e) => setGuestEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-accent/20 bg-secondary/10 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                />
+                <div className="space-y-1">
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    value={guestEmail}
+                    onChange={(e) => setGuestEmail(e.target.value)}
+                    className={`w-full px-4 py-3 rounded-xl border bg-secondary/10 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+                      guestEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guestEmail) 
+                      ? "border-red-500/50 focus:ring-red-500/50" 
+                      : "border-accent/20"
+                    }`}
+                  />
+                  {guestEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guestEmail) && (
+                    <p className="text-xs text-red-500/90 pl-2">Please enter a valid email address.</p>
+                  )}
+                </div>
               </div>
 
               <AlertDialogFooter className="flex flex-col sm:flex-row gap-3">
@@ -326,7 +339,7 @@ export function SeatReservation({ onBack }: SeatReservationProps) {
                     e.preventDefault();
                     handleConfirmSeat();
                   }}
-                  disabled={!guestName.trim() || !guestEmail.trim() || isSubmitting}
+                  disabled={!guestName.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(guestEmail) || isSubmitting}
                   className="bg-primary hover:bg-primary/90 rounded-full"
                 >
                   {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : "Confirm RSVP"}
@@ -339,7 +352,7 @@ export function SeatReservation({ onBack }: SeatReservationProps) {
                 <Check className="w-8 h-8 text-green-600" />
               </div>
               <AlertDialogTitle className="text-2xl mb-2 text-center">Reservation Confirmed!</AlertDialogTitle>
-              <AlertDialogDescription className="text-center text-sm mb-8 text-muted-foreground">
+              <AlertDialogDescription className="text-center text-sm mb-8 text-muted-foreground w-80">
                 {submitMessage}
               </AlertDialogDescription>
               <AlertDialogAction className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-10 py-6 w-[50%] sm:w-auto text-lg" onClick={() => setShowConfirmation(false)}>
@@ -355,9 +368,14 @@ export function SeatReservation({ onBack }: SeatReservationProps) {
               <AlertDialogDescription className="text-center text-sm mb-8 text-red-600/90">
                 {submitMessage}
               </AlertDialogDescription>
-              <div className="flex flex-col sm:flex-row gap-4 w-[50%] justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
                 <AlertDialogCancel className="rounded-full px-8 py-6 w-full sm:w-auto" onClick={() => setSubmitStatus('idle')}>Try Again</AlertDialogCancel>
-                <AlertDialogAction className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 w-full sm:w-auto " onClick={() => setShowConfirmation(false)}>Close</AlertDialogAction>
+                {onTrouble && (
+                  <AlertDialogAction className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 w-full sm:w-auto" onClick={() => { setShowConfirmation(false); onTrouble(); }}>Need help?</AlertDialogAction>
+                )}
+                {!onTrouble && (
+                  <AlertDialogAction className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 w-full sm:w-auto " onClick={() => setShowConfirmation(false)}>Close</AlertDialogAction>
+                )}
               </div>
             </div>
           )}
