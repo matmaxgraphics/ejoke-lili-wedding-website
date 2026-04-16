@@ -2,6 +2,8 @@ import { HeroSection } from '@/components/hero-section';
 import { WeddingCountdown } from '@/components/wedding-countdown';
 // import { LoveStoryTimeline } from '@/components/love-story-timeline';
 import { PhotoGallery } from '@/components/photo-gallery';
+import { KingdomHallSection } from '@/components/kingdom-hall-section';
+import { ColorsOfTheDaySection } from '@/components/colors-of-the-day-section';
 import { RSVPSection } from '@/components/rsvp-section';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
@@ -14,6 +16,8 @@ export default function Home() {
       <WeddingCountdown />
       {/* <LoveStoryTimeline /> */}
       <PhotoGallery />
+      <KingdomHallSection />
+      <ColorsOfTheDaySection />
       <RSVPSection />
       <Footer />
     </main>
