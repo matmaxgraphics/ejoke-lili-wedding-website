@@ -58,51 +58,52 @@ export function SeatReservation({ onBack, onTrouble }: SeatReservationProps) {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
 
-  useEffect(() => {
-    async function loadSeatingData() {
-      setIsLoadingData(true);
-      try {
-        const { data: dbReservations, error } = await supabase
-          .from('reservations')
-          .select('table_number, seat_number');
+  const loadSeatingData = async (silentMode = false) => {
+    if (!silentMode) setIsLoadingData(true);
+    try {
+      const { data: dbReservations, error } = await supabase
+        .from('reservations')
+        .select('table_number, seat_number');
 
-        if (error) throw error;
+      if (error) throw error;
 
-        const generatedTables: Table[] = [];
-        for (let t = 1; t <= TOTAL_TABLES; t++) {
-          const isFamilyTable = BLOCKED_TABLE_NUMBERS.includes(t);
-          const seats: Seat[] = [];
-          let takenSeatsCount = 0;
+      const generatedTables: Table[] = [];
+      for (let t = 1; t <= TOTAL_TABLES; t++) {
+        const isFamilyTable = BLOCKED_TABLE_NUMBERS.includes(t);
+        const seats: Seat[] = [];
+        let takenSeatsCount = 0;
 
-          for (let s = 1; s <= SEATS_PER_TABLE; s++) {
-            const isReservedInDB = dbReservations?.some(
-              (r) => r.table_number === t && r.seat_number === s
-            );
-            const isReserved = isFamilyTable || isReservedInDB;
-            if (isReserved) takenSeatsCount++;
+        for (let s = 1; s <= SEATS_PER_TABLE; s++) {
+          const isReservedInDB = dbReservations?.some(
+            (r) => r.table_number === t && r.seat_number === s
+          );
+          const isReserved = isFamilyTable || isReservedInDB;
+          if (isReserved) takenSeatsCount++;
 
-            seats.push({
-              id: `T${t}-S${s}`,
-              tableNumber: t,
-              seatNumber: s,
-              status: isReserved ? 'reserved' : 'available',
-            });
-          }
-
-          generatedTables.push({
-            id: `T${t}`,
+          seats.push({
+            id: `T${t}-S${s}`,
             tableNumber: t,
-            status: takenSeatsCount === SEATS_PER_TABLE ? 'reserved' : 'available',
-            seats: seats,
+            seatNumber: s,
+            status: isReserved ? 'reserved' : 'available',
           });
         }
-        setTables(generatedTables);
-      } catch (err) {
-        console.error("Error loading seating:", err);
-      } finally {
-        setIsLoadingData(false);
+
+        generatedTables.push({
+          id: `T${t}`,
+          tableNumber: t,
+          status: takenSeatsCount === SEATS_PER_TABLE ? 'reserved' : 'available',
+          seats: seats,
+        });
       }
+      setTables(generatedTables);
+    } catch (err) {
+      console.error("Error loading seating:", err);
+    } finally {
+      if (!silentMode) setIsLoadingData(false);
     }
+  };
+
+  useEffect(() => {
     loadSeatingData();
   }, []);
 
@@ -147,16 +148,8 @@ export function SeatReservation({ onBack, onTrouble }: SeatReservationProps) {
 
       const assignedSeatNumbers = result.assignedSeats || [selectedSeat.seatNumber];
 
-      // Update local UI
-      setTables(prev => prev.map(t => {
-        if (t.tableNumber === activeTable.tableNumber) {
-          return {
-            ...t,
-            seats: t.seats.map(s => assignedSeatNumbers.includes(s.seatNumber) ? { ...s, status: 'reserved' } : s)
-          };
-        }
-        return t;
-      }));
+      // Fetch latest from DB silently to keep UI exactly up to date natively
+      await loadSeatingData(true);
 
       setSubmitStatus('success');
       setSubmitMessage(`Sharp!
@@ -358,7 +351,7 @@ export function SeatReservation({ onBack, onTrouble }: SeatReservationProps) {
                     className="w-4 h-4 rounded border-accent/20 text-primary focus:ring-primary"
                   />
                   <label htmlFor="family-booking" className="text-sm cursor-pointer select-none">
-                    Book for your family
+                    Book for your family/friends
                   </label>
                 </div>
 
