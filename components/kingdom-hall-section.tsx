@@ -39,7 +39,7 @@ export function KingdomHallSection() {
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-foreground mb-2">Location</h3>
-                    <p className="text-muted-foreground font-light leading-relaxed">
+                    <p className="text-muted-foreground font-bold leading-relaxed">
                       Kingdom Hall of Jehovah's Witnesses<br />
                       #26 Alhaji Mustapha Street, Iju Ishaga<br />
                       Lagos State
@@ -53,7 +53,7 @@ export function KingdomHallSection() {
                   </div>
                   <div>
                     <h3 className="text-xl font-serif text-foreground mb-2">Time</h3>
-                    <p className="text-muted-foreground font-light leading-relaxed">
+                    <p className="text-muted-foreground font-bold leading-relaxed">
                       Saturday, May 16, 2026<br />
                       10:00 AM Prompt
                     </p>
